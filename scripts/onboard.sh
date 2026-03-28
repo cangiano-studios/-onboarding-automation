@@ -23,3 +23,20 @@ info()    { log INFO    "$@"; }
 success() { log SUCCESS "$@"; }
 warn()    { log WARN    "$@"; }
 error()   { log ERROR   "$@"; }
+
+# Department to Google Group mapping
+dept_to_group() {
+  local dept
+  dept="$(echo "$1" | tr '[:upper:]' '[:lower:]' | xargs)"
+  case "$dept" in
+    engineering|eng) echo "eng@cangianostudios.com" ;;
+    sales)           echo "sales@cangianostudios.com" ;;
+    marketing)       echo "marketing@cangianostudios.com" ;;
+    hr)              echo "hr@cangianostudios.com" ;;
+    *)
+      warn "Unknown department '${dept}' — no group will be assigned"
+      echo ""
+      ;;
+  esac
+}
+
