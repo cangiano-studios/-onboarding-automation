@@ -104,7 +104,6 @@ create_user() {
   local email="$(echo "${first}.${last}" | tr '[:upper:]' '[:lower:]')@cangianostudios.com"
 
   info "Creating user: ${email}"
-  echo "DEBUG password in function: [$DEFAULT_PASSWORD]"
 
 local hashed_pass
 hashed_pass="$(echo -n "$DEFAULT_PASSWORD" | openssl dgst -sha1)"
@@ -153,3 +152,47 @@ dir_token="$(get_access_token \
   "https://www.googleapis.com/auth/admin.directory.user" \
   "jeremy@cangianostudios.com")"
 create_user "$dir_token" "Jane" "Smith"
+
+# Add user to a Google Group
+add_to_group() {
+  local token="$1"
+  local user_email="$2"
+  local group_email="$3"
+
+  if [[ -z "$group_email" ]]; then
+    warn "No group mapped for ${user_email} — skipping group assignment"
+    return 0
+  fi
+
+  info "Adding ${user_email} to group ${group_email}"
+
+  local payload
+  payload="$(jq -cn --arg email "$user_email" '{ email: $email, role: "MEMBER" }')"
+
+  local http_code response
+  response="$(curl -s -w '\n%{http_code}' \
+    -X POST "https://admin.googleapis.com/admin/directory/v1/groups/${group_email}/members" \
+    -H "Authorization: Bearer ${token}" \
+    -H "Content-Type: application/json" \
+    -d "$payload")"
+
+  http_code="$(printf '%s' "$response" | tail -n1)"
+  response="$(printf '%s' "$response" | sed '$d')"
+
+  case "$http_code" in
+    200|201)
+      success "Added ${user_email} to ${group_email}"
+      ;;
+    409)
+      warn "${user_email} is already a member of ${group_email}"
+      ;;
+    404)
+      error "Group ${group_email} not found — does it exist in Admin Console?"
+      return 1
+      ;;
+    *)
+      error "Failed to add ${user_email} to ${group_email} (HTTP ${http_code}): $(printf '%s' "$response")"
+      return 1
+      ;;
+  esac
+}
