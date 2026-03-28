@@ -196,3 +196,72 @@ add_to_group() {
       ;;
   esac
 }
+
+# Send welcome email via Gmail API
+send_welcome_email() {
+  local token="$1"
+  local user_email="$2"
+  local first="$3"
+  local dept="$4"
+  local personal_email="$5"
+
+  info "Sending welcome email to ${personal_email}"
+
+  # Build the email body
+  local subject="Welcome to Cangiano Studios, ${first}!"
+  local body
+  body="Hi ${first},
+
+Welcome to Cangiano Studios! Your Google Workspace account is ready.
+
+  Corporate email : ${user_email}
+  Department      : ${dept}
+  Temp password   : ${DEFAULT_PASSWORD}
+
+IMPORTANT: Please sign in at https://accounts.google.com and change
+your password immediately. You will be prompted on first login.
+
+Useful links:
+  - Google Drive    : https://drive.google.com
+  - Google Calendar : https://calendar.google.com
+  - IT Help Desk    : jeremy@cangianostudios.com
+
+Welcome aboard!
+The IT Team at Cangiano Studios"
+
+  # Build RFC 2822 MIME message
+  local raw_mime
+  raw_mime="From: IT Team <${user_email}>
+To: ${personal_email}
+Cc: ${user_email}
+Subject: ${subject}
+Content-Type: text/plain; charset=UTF-8
+
+${body}"
+
+  # base64url encode
+  local encoded
+  encoded="$(printf '%s' "$raw_mime" | openssl base64 -A | tr '+/' '-_' | tr -d '=')"
+
+  local payload
+  payload="$(jq -cn --arg raw "$encoded" '{raw: $raw}')"
+
+  local http_code response
+  response="$(curl -s -w '\n%{http_code}' \
+    -X POST "https://gmail.googleapis.com/gmail/v1/users/${user_email}/messages/send" \
+    -H "Authorization: Bearer ${token}" \
+    -H "Content-Type: application/json" \
+    -d "$payload")"
+
+  http_code="$(printf '%s' "$response" | tail -n1)"
+  response="$(printf '%s' "$response" | sed '$d')"
+
+  case "$http_code" in
+    200|201)
+      success "Welcome email sent to ${personal_email}"
+      ;;
+    *)
+      warn "Failed to send welcome email (HTTP ${http_code}): $(printf '%s' "$response")"
+      ;;
+  esac
+}
