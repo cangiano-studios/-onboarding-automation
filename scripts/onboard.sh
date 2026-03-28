@@ -22,7 +22,7 @@ log() {
   local msg="$*"
   local ts
   ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  printf '[%s] [%s] %s\n' "$ts" "$level" "$msg" | tee -a "$LOG_FILE"
+  printf '[%s] [%s] %s\n' "$ts" "$level" "$msg" | tee -a "$LOG_FILE" >&2
 }
 
 info()    { log INFO    "$@"; }
@@ -136,11 +136,11 @@ payload="$(jq -cn \
   case "$http_code" in
     200|201)
       success "Created user ${email}"
-      printf '%s' "$email"
+      echo "$email"
       ;;
     409)
       warn "User ${email} already exists — skipping"
-      printf '%s' "$email"
+      echo "$email"
       ;;
     *)
       error "Failed to create ${email} (HTTP ${http_code}): $(printf '%s' "$response")"
@@ -248,7 +248,7 @@ ${body}"
 
   local http_code response
   response="$(curl -s -w '\n%{http_code}' \
-    -X POST "https://gmail.googleapis.com/gmail/v1/users/${user_email}/messages/send" \
+    -X POST "https://gmail.googleapis.com/gmail/v1/users/jeremy@cangianostudios.com/messages/send" \
     -H "Authorization: Bearer ${token}" \
     -H "Content-Type: application/json" \
     -d "$payload")"
@@ -265,3 +265,80 @@ ${body}"
       ;;
   esac
 }
+
+# Process one hire — wraps all steps
+process_hire() {
+  local first="$1" last="$2" personal_email="$3" dept="$4"
+
+  info "--- Processing: ${first} ${last} (${dept}) ---"
+
+  # Get Admin SDK token
+  local dir_token
+  dir_token="$(get_access_token \
+    "https://www.googleapis.com/auth/admin.directory.user https://www.googleapis.com/auth/admin.directory.group.member" \
+    "jeremy@cangianostudios.com")" || {
+    error "Could not get directory token for ${first} ${last} — skipping"
+    return 1
+  }
+
+  # Create user
+  local user_email
+  user_email="$(create_user "$dir_token" "$first" "$last")" || return 1
+
+  # Add to department group
+  local group
+  group="$(dept_to_group "$dept")"
+  add_to_group "$dir_token" "$user_email" "$group" || true
+
+  # Get Gmail token impersonating the new hire
+  local gmail_token
+  gmail_token="$(get_access_token \
+    "https://www.googleapis.com/auth/gmail.send" \
+  "jeremy@cangianostudios.com")" || {
+    warn "Could not get Gmail token — skipping welcome email"
+    return 0
+  }
+
+  # Send welcome email
+  send_welcome_email "$gmail_token" "$user_email" "$first" "$dept" "$personal_email" || true
+
+  success "=== Completed onboarding for ${first} ${last} ==="
+}
+
+# Main — read CSV and process each row
+main() {
+  local csv_file="$1"
+  info "Starting onboarding run | CSV: ${csv_file}"
+  info "Log file: ${LOG_FILE}"
+
+  local total=0 ok=0 failed=0
+
+  while IFS=',' read -r first last personal_email dept _rest; do
+    # Skip blank lines and header
+    [[ -z "$first" || "$first" == "first_name" ]] && continue
+
+    # Trim whitespace and quotes
+    first="${first//\"/}"
+    last="${last//\"/}"
+    personal_email="${personal_email//\"/}"
+    dept="${dept//\"/}"
+
+    total=$((total + 1))
+
+    if process_hire "$first" "$last" "$personal_email" "$dept"; then
+      ok=$((ok + 1))
+    else
+      failed=$((failed + 1))
+      error "Failed to onboard ${first} ${last}"
+    fi
+
+  done < "$csv_file"
+
+  info "================================================"
+  info "Run complete | Total: ${total} | OK: ${ok} | Failed: ${failed}"
+  info "================================================"
+
+  [[ $failed -eq 0 ]]
+}
+
+main "$@"
