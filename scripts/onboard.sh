@@ -23,3 +23,4 @@ info()    { log INFO    "$@"; }
 success() { log SUCCESS "$@"; }
 warn()    { log WARN    "$@"; }
 error()   { log ERROR   "$@"; }
+info "Logging is working"
