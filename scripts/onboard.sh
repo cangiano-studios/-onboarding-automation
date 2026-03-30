@@ -1,4 +1,24 @@
 #!/usr/bin/env bash
+# =============================================================================
+# onboard.sh — Google Workspace Employee Onboarding Automation
+# =============================================================================
+# Created:     March 28, 2026
+# Author:      Jeremy Cangiano
+# Domain:      cangianostudios.com
+#
+# Description:
+#   Automates end-to-end onboarding of new employees into Google Workspace.
+#   Reads a CSV of new hires, creates Workspace accounts, adds users to
+#   department Google Groups, and sends a personalized welcome email.
+#
+# AI Assistance:
+#   Built with the help of Claude (Anthropic). Claude was used for
+#   error analysis, remediation guidance, and testing functionality
+#   throughout development.
+#
+# Usage:
+#   ./scripts/onboard.sh new_hires.csv
+# =============================================================================
 set -euo pipefail
 
 set -a
