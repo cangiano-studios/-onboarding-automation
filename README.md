@@ -3,6 +3,12 @@
 A Bash script that automates end-to-end onboarding of new employees
 into Google Workspace for cangianostudios.com.
 
+## Status
+
+✅ Fully functional — tested end to end against a live Google Workspace
+domain (cangianostudios.com). User creation, group membership, and
+welcome email delivery all verified working.
+
 ---
 
 ## Requirements & Assumptions
