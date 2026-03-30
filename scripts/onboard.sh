@@ -14,7 +14,8 @@
 # AI Assistance:
 #   Built with the help of Claude (Anthropic). Claude was used for
 #   error analysis, remediation guidance, and testing functionality
-#   throughout development.
+#   throughout development. Claude also assisted in formulating
+#   documentation, organizing thoughts, and structuring the project write-up and README.
 #
 # Usage:
 #   ./scripts/onboard.sh new_hires.csv
