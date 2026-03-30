@@ -12,7 +12,7 @@
 #   department Google Groups, and sends a personalized welcome email.
 #
 # AI Assistance:
-#   Built with the help of Claude (Anthropic). Claude was used for
+#   Built with the help of Claude Sonnet 4.6 (Anthropic). Claude was used for
 #   error analysis, remediation guidance, and testing functionality
 #   throughout development. Claude also assisted in formulating
 #   documentation, organizing thoughts, and structuring the project write-up and README.
