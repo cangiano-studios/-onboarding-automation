@@ -1,0 +1,14 @@
+[2026-03-28T17:42:14Z] [INFO] Creating user: jane.smith@cangianostudios.com
+[2026-03-28T17:42:15Z] [WARN] User jane.smith@cangianostudios.com already exists — skipping
+[2026-03-28T17:42:15Z] [INFO] Starting onboarding run | CSV: new_hires.csv
+[2026-03-28T17:42:15Z] [INFO] Log file: logs/onboard_20260328_134214.log
+[2026-03-28T17:42:15Z] [INFO] --- Processing: Jeremy Cangiano (Engineering) ---
+[2026-03-28T17:42:15Z] [INFO] Creating user: jeremy.cangiano@cangianostudios.com
+[2026-03-28T17:42:17Z] [SUCCESS] Created user jeremy.cangiano@cangianostudios.com
+[2026-03-28T17:42:17Z] [INFO] Adding jeremy.cangiano@cangianostudios.com to group eng@cangianostudios.com
+[2026-03-28T17:42:18Z] [SUCCESS] Added jeremy.cangiano@cangianostudios.com to eng@cangianostudios.com
+[2026-03-28T17:42:19Z] [ERROR] Failed to get token: Requested client not authorized.
+[2026-03-28T17:42:19Z] [WARN] Could not get Gmail token for jeremy.cangiano@cangianostudios.com — skipping welcome email
+[2026-03-28T17:42:19Z] [INFO] ================================================
+[2026-03-28T17:42:19Z] [INFO] Run complete | Total: 1 | OK: 1 | Failed: 0
+[2026-03-28T17:42:19Z] [INFO] ================================================

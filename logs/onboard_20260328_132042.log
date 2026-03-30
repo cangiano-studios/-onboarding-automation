@@ -1,0 +1,4 @@
+[2026-03-28T17:20:42Z] [INFO] Creating user: jane.smith@cangianostudios.com
+[2026-03-28T17:20:43Z] [WARN] User jane.smith@cangianostudios.com already exists — skipping
+[2026-03-28T17:20:43Z] [INFO] Sending welcome email to your-personal-email@gmail.com
+[2026-03-28T17:20:44Z] [SUCCESS] Welcome email sent to your-personal-email@gmail.com

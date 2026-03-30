@@ -1,0 +1,15 @@
+[2026-03-28T18:01:26Z] [INFO] Creating user: jane.smith@cangianostudios.com
+[2026-03-28T18:01:27Z] [WARN] User jane.smith@cangianostudios.com already exists — skipping
+[2026-03-28T18:01:27Z] [INFO] Starting onboarding run | CSV: new_hires.csv
+[2026-03-28T18:01:27Z] [INFO] Log file: logs/onboard_20260328_140126.log
+[2026-03-28T18:01:27Z] [INFO] --- Processing: Jeremy Cangiano (Engineering) ---
+[2026-03-28T18:01:27Z] [INFO] Creating user: jeremy.cangiano@cangianostudios.com
+[2026-03-28T18:01:27Z] [WARN] User jeremy.cangiano@cangianostudios.com already exists — skipping
+[2026-03-28T18:01:27Z] [INFO] Adding jeremy.cangiano@cangianostudios.com to group eng@cangianostudios.com
+[2026-03-28T18:01:28Z] [WARN] jeremy.cangiano@cangianostudios.com is already a member of eng@cangianostudios.com
+[2026-03-28T18:01:28Z] [INFO] Sending welcome email to jeremycangiano@gmail.com
+[2026-03-28T18:01:29Z] [SUCCESS] Welcome email sent to jeremycangiano@gmail.com
+[2026-03-28T18:01:29Z] [SUCCESS] === Completed onboarding for Jeremy Cangiano ===
+[2026-03-28T18:01:29Z] [INFO] ================================================
+[2026-03-28T18:01:29Z] [INFO] Run complete | Total: 1 | OK: 1 | Failed: 0
+[2026-03-28T18:01:29Z] [INFO] ================================================

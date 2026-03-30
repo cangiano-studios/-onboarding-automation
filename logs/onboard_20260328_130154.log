@@ -1,0 +1,14 @@
+[2026-03-28T17:01:55Z] [INFO] Creating user: jane.smith@cangianostudios.com
+[2026-03-28T17:01:55Z] [ERROR] Failed to create jane.smith@cangianostudios.com (HTTP 400): {
+  "error": {
+    "code": 400,
+    "message": "Invalid Password",
+    "errors": [
+      {
+        "message": "Invalid Password",
+        "domain": "global",
+        "reason": "invalid"
+      }
+    ]
+  }
+}

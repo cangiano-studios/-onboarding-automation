@@ -1,0 +1,4 @@
+[2026-03-28T17:16:55Z] [INFO] Creating user: jane.smith@cangianostudios.com
+[2026-03-28T17:16:55Z] [WARN] User jane.smith@cangianostudios.com already exists — skipping
+[2026-03-28T17:16:55Z] [INFO] Adding jane.smith@cangianostudios.com to group eng@cangianostudios.com
+[2026-03-28T17:16:56Z] [SUCCESS] Added jane.smith@cangianostudios.com to eng@cangianostudios.com
