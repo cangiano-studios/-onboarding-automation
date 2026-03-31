@@ -1,0 +1,23 @@
+[2026-03-31T19:37:21Z] [INFO] Creating user: jane.smith@cangianostudios.com
+[2026-03-31T19:37:21Z] [WARN] User jane.smith@cangianostudios.com already exists — skipping
+[2026-03-31T19:37:21Z] [INFO] Starting onboarding run | CSV: new_hires.csv
+[2026-03-31T19:37:21Z] [INFO] Log file: logs/onboard_20260331_153720.log
+[2026-03-31T19:37:21Z] [INFO] --- Processing: Jeremy Cangiano (Engineering) ---
+[2026-03-31T19:37:21Z] [INFO] Creating user: jeremy.cangiano@cangianostudios.com
+[2026-03-31T19:37:22Z] [WARN] User jeremy.cangiano@cangianostudios.com already exists — skipping
+[2026-03-31T19:37:22Z] [WARN] Unknown department 'engineering' — no group will be assigned
+[2026-03-31T19:37:22Z] [WARN] No group mapped for jeremy.cangiano@cangianostudios.com — skipping group assignment
+[2026-03-31T19:37:22Z] [INFO] Sending welcome email to jeremycangiano@gmail.com
+[2026-03-31T19:37:23Z] [SUCCESS] Welcome email sent to jeremycangiano@gmail.com
+[2026-03-31T19:37:23Z] [SUCCESS] === Completed onboarding for Jeremy Cangiano ===
+[2026-03-31T19:37:23Z] [INFO] --- Processing: Katie Dunlevy (Sales) ---
+[2026-03-31T19:37:23Z] [INFO] Creating user: katie.dunlevy@cangianostudios.com
+[2026-03-31T19:37:25Z] [SUCCESS] Created user katie.dunlevy@cangianostudios.com
+[2026-03-31T19:37:25Z] [WARN] Unknown department 'sales' — no group will be assigned
+[2026-03-31T19:37:25Z] [WARN] No group mapped for katie.dunlevy@cangianostudios.com — skipping group assignment
+[2026-03-31T19:37:25Z] [INFO] Sending welcome email to katiedunlevy21@yahoo.com
+[2026-03-31T19:37:26Z] [SUCCESS] Welcome email sent to katiedunlevy21@yahoo.com
+[2026-03-31T19:37:26Z] [SUCCESS] === Completed onboarding for Katie Dunlevy ===
+[2026-03-31T19:37:26Z] [INFO] ================================================
+[2026-03-31T19:37:26Z] [INFO] Run complete | Total: 2 | OK: 2 | Failed: 0
+[2026-03-31T19:37:26Z] [INFO] ================================================
